@@ -35,7 +35,7 @@ namespace ContactsCore3CosmosDBMVC.Models.Concrete
       _cosmosEndpoint = cosmosUtility.Value.CosmosEndpoint;
       _cosmosKey = cosmosUtility.Value.CosmosKey;
       _databaseId = "multiDb";
-      _containerId = "contact";
+      _containerId = "contacts";
 
       _cosmosClient = new CosmosClient(_cosmosEndpoint, _cosmosKey);
       _cosmosClient.CreateDatabaseIfNotExistsAsync(_databaseId).GetAwaiter().GetResult();
@@ -49,36 +49,122 @@ namespace ContactsCore3CosmosDBMVC.Models.Concrete
 
     public async Task<Contact> CreateAsync(Contact contact)
     {
+      ItemResponse<Contact> contactResponse = await _container.CreateItemAsync<Contact>(contact);
+
+      if (contactResponse.StatusCode == HttpStatusCode.Created)
+      {
+        return contact;
+      }
       return null;
     }
 
     public async Task<Contact> FindContactAsync(string id)
     {
+      var sqlQuery = $"Select * from c where c.id='{id}'";
+      QueryDefinition queryDefinition = new QueryDefinition(sqlQuery);
+      FeedIterator<Contact> queryResultIterator = _container.GetItemQueryIterator<Contact>(queryDefinition);
+      List<Contact> contactsList = new List<Contact>();
+      while (queryResultIterator.HasMoreResults)
+      {
+        FeedResponse<Contact> currentResultSet = await queryResultIterator.ReadNextAsync();
+        foreach (var item in currentResultSet)
+        {
+          contactsList.Add(item);
+        }
+        return contactsList[0];
+      }
       return null;
     }
     public async Task<List<Contact>> FindContactCPAsync(string contactName, string phone)
     {
+      var sqlQuery = $"Select * from c where c.contactName='{contactName}' and c.phone='{phone}'";
+      QueryDefinition queryDefinition = new QueryDefinition(sqlQuery);
+      FeedIterator<Contact> queryResultIterator = _container.GetItemQueryIterator<Contact>(queryDefinition);
+      List<Contact> contactsList = new List<Contact>();
+      while (queryResultIterator.HasMoreResults)
+      {
+        FeedResponse<Contact> currentResultSet = await queryResultIterator.ReadNextAsync();
+        foreach (var item in currentResultSet)
+        {
+          contactsList.Add(item);
+        }
+        return contactsList;
+      }
       return null;
     }
 
     public async Task<List<Contact>> FindContactByPhoneAsync(string phone)
     {
+      var sqlQuery = $"Select * from c where c.phone='{phone}'";
+      QueryDefinition queryDefinition = new QueryDefinition(sqlQuery);
+      FeedIterator<Contact> queryResultIterator = _container.GetItemQueryIterator<Contact>(queryDefinition);
+      List<Contact> contactsList = new List<Contact>();
+      while (queryResultIterator.HasMoreResults)
+      {
+        FeedResponse<Contact> currentResultSet = await queryResultIterator.ReadNextAsync();
+        foreach (var item in currentResultSet)
+        {
+          contactsList.Add(item);
+        }
+        return contactsList;
+      }
       return null;
     }
 
     public async Task<List<Contact>> FindContactsByContactNameAsync(string contactName)
     {
+      var sqlQuery = $"Select * from c where c.contactName='{contactName}'";
+      QueryDefinition queryDefinition = new QueryDefinition(sqlQuery);
+      FeedIterator<Contact> queryResultIterator = _container.GetItemQueryIterator<Contact>(queryDefinition);
+      List<Contact> contactsList = new List<Contact>();
+      while (queryResultIterator.HasMoreResults)
+      {
+        FeedResponse<Contact> currentResultSet = await queryResultIterator.ReadNextAsync();
+        foreach (var item in currentResultSet)
+        {
+          contactsList.Add(item);
+        }
+        return contactsList;
+      }
       return null;
-
     }
 
     public async Task<List<Contact>> GetAllContactsAsync()
     {
+      var sqlQuery = "Select * from c";
+
+      QueryDefinition queryDefinition = new QueryDefinition(sqlQuery);
+      FeedIterator<Contact> queryResultIterator = _container.GetItemQueryIterator<Contact>(queryDefinition);
+      List<Contact> contactsList = new List<Contact>();
+      while (queryResultIterator.HasMoreResults)
+      {
+        FeedResponse<Contact> currentResultSet = await queryResultIterator.ReadNextAsync();
+        foreach (var item in currentResultSet)
+        {
+          contactsList.Add(item);
+        }
+        return contactsList;
+      }
       return null;
     }
 
     public async Task<Contact> UpdateAsync(Contact contact)
     {
+      ItemResponse<Contact> contactResponse = await _container.ReadItemAsync<Contact>(contact.Id, new PartitionKey(contact.ContactName));
+      var contactResult = contactResponse.Resource;
+
+      contactResult.Id = contact.Id;
+      contactResult.ContactName = contact.ContactName;
+      contactResult.ContactType = contact.ContactType;
+      contactResult.Phone = contact.Phone;
+      contactResult.Email = contact.Email;
+
+      contactResponse = await _container.ReplaceItemAsync<Contact>(contactResult, contactResult.Id);
+
+      if (contactResponse.Resource != null)
+      {
+        return contactResponse;
+      }
       return null;
     }
 

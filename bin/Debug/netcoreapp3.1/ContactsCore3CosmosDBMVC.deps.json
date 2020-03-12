@@ -28,6 +28,7 @@
           "Microsoft.Azure.Cosmos": "3.6.0",
           "Microsoft.Azure.KeyVault": "3.0.5",
           "Microsoft.Azure.Services.AppAuthentication": "1.4.0",
+          "Microsoft.Extensions.Caching.Redis": "2.2.0",
           "Microsoft.Extensions.Configuration.AzureKeyVault": "3.1.2",
           "Microsoft.Extensions.Logging.ApplicationInsights": "2.13.1",
           "Swashbuckle.AspNetCore": "5.0.0",
@@ -160,7 +161,7 @@
           "System.Collections.Immutable.Reference": "1.2.5.0",
           "System.Collections.NonGeneric.Reference": "4.1.2.0",
           "System.Collections.Specialized.Reference": "4.1.2.0",
-          "System.ComponentModel.Annotations": "4.3.1.0",
+          "System.ComponentModel.Annotations.Reference": "4.3.1.0",
           "System.ComponentModel.DataAnnotations": "4.0.0.0",
           "System.ComponentModel.Reference": "4.0.4.0",
           "System.ComponentModel.EventBasedAsync": "4.1.2.0",
@@ -453,7 +454,7 @@
           "Microsoft.Extensions.DependencyInjection": "1.0.2",
           "Microsoft.Extensions.FileProviders.Physical": "3.1.2",
           "Microsoft.Extensions.Logging": "2.1.0",
-          "Microsoft.Extensions.Options": "2.1.0",
+          "Microsoft.Extensions.Options": "2.2.0",
           "Microsoft.Extensions.PlatformAbstractions": "1.1.0",
           "System.Console": "4.3.0",
           "System.Diagnostics.DiagnosticSource": "4.6.0",
@@ -468,7 +469,7 @@
           "Microsoft.AspNetCore.Hosting.Server.Abstractions": "1.0.2",
           "Microsoft.AspNetCore.Http.Abstractions": "1.0.2",
           "Microsoft.Extensions.Configuration.Abstractions": "3.1.2",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "2.1.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "2.2.0",
           "Microsoft.Extensions.FileProviders.Abstractions": "3.1.2",
           "Microsoft.Extensions.Logging.Abstractions": "2.1.0"
         }
@@ -484,7 +485,7 @@
           "Microsoft.AspNetCore.Http.Abstractions": "1.0.2",
           "Microsoft.AspNetCore.WebUtilities": "1.0.2",
           "Microsoft.Extensions.ObjectPool": "1.0.1",
-          "Microsoft.Extensions.Options": "2.1.0",
+          "Microsoft.Extensions.Options": "2.2.0",
           "Microsoft.Net.Http.Headers": "1.0.2",
           "System.Buffers": "4.3.0",
           "System.Threading": "4.3.0"
@@ -654,21 +655,34 @@
         }
       },
       "Microsoft.Extensions.ApiDescription.Server/3.0.0": {},
-      "Microsoft.Extensions.Caching.Abstractions/1.0.0": {
+      "Microsoft.Extensions.Caching.Abstractions/2.2.0": {
         "dependencies": {
-          "Microsoft.Extensions.Primitives": "3.1.2",
-          "System.Collections": "4.3.0",
-          "System.Threading": "4.3.0",
-          "System.Threading.Tasks": "4.3.0"
+          "Microsoft.Extensions.Primitives": "3.1.2"
         }
       },
       "Microsoft.Extensions.Caching.Memory/1.0.0": {
         "dependencies": {
-          "Microsoft.Extensions.Caching.Abstractions": "1.0.0",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "2.1.0",
-          "Microsoft.Extensions.Options": "2.1.0",
+          "Microsoft.Extensions.Caching.Abstractions": "2.2.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "2.2.0",
+          "Microsoft.Extensions.Options": "2.2.0",
           "System.Linq": "4.3.0",
           "System.Threading": "4.3.0"
+        }
+      },
+      "Microsoft.Extensions.Caching.Redis/2.2.0": {
+        "dependencies": {
+          "Microsoft.Extensions.Caching.Abstractions": "2.2.0",
+          "Microsoft.Extensions.Options": "2.2.0",
+          "StackExchange.Redis.StrongName": "1.2.6"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Extensions.Caching.Redis.dll": {
+            "assemblyVersion": "2.2.0.0",
+            "fileVersion": "2.2.0.18315"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.Extensions.Caching.Redis.dll": {}
         }
       },
       "Microsoft.Extensions.Configuration/3.1.2": {
@@ -750,7 +764,7 @@
       },
       "Microsoft.Extensions.DependencyInjection/1.0.2": {
         "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "2.1.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "2.2.0",
           "System.Collections": "4.3.0",
           "System.Collections.Concurrent": "4.3.0",
           "System.Runtime.Extensions": "4.3.0",
@@ -758,10 +772,10 @@
           "System.Threading.Tasks": "4.3.0"
         }
       },
-      "Microsoft.Extensions.DependencyInjection.Abstractions/2.1.0": {},
+      "Microsoft.Extensions.DependencyInjection.Abstractions/2.2.0": {},
       "Microsoft.Extensions.DiagnosticAdapter/1.1.0": {
         "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "2.1.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "2.2.0",
           "NETStandard.Library": "1.6.1",
           "System.ComponentModel": "4.3.0",
           "System.Diagnostics.DiagnosticSource": "4.6.0",
@@ -821,9 +835,9 @@
       "Microsoft.Extensions.Logging/2.1.0": {
         "dependencies": {
           "Microsoft.Extensions.Configuration.Binder": "2.1.0",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "2.1.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "2.2.0",
           "Microsoft.Extensions.Logging.Abstractions": "2.1.0",
-          "Microsoft.Extensions.Options": "2.1.0"
+          "Microsoft.Extensions.Options": "2.2.0"
         }
       },
       "Microsoft.Extensions.Logging.Abstractions/2.1.0": {},
@@ -850,10 +864,11 @@
           "System.Threading": "4.3.0"
         }
       },
-      "Microsoft.Extensions.Options/2.1.0": {
+      "Microsoft.Extensions.Options/2.2.0": {
         "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "2.1.0",
-          "Microsoft.Extensions.Primitives": "3.1.2"
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "2.2.0",
+          "Microsoft.Extensions.Primitives": "3.1.2",
+          "System.ComponentModel.Annotations": "4.5.0"
         }
       },
       "Microsoft.Extensions.PlatformAbstractions/1.1.0": {
@@ -1112,6 +1127,42 @@
           }
         }
       },
+      "StackExchange.Redis.StrongName/1.2.6": {
+        "dependencies": {
+          "NETStandard.Library": "1.6.1",
+          "System.Collections": "4.3.0",
+          "System.Collections.Concurrent": "4.3.0",
+          "System.Collections.NonGeneric": "4.3.0",
+          "System.Diagnostics.Tools": "4.3.0",
+          "System.IO.Compression": "4.3.0",
+          "System.IO.FileSystem": "4.3.0",
+          "System.Linq": "4.3.0",
+          "System.Net.NameResolution": "4.3.0",
+          "System.Net.Security": "4.3.0",
+          "System.Net.Sockets": "4.3.0",
+          "System.Reflection.Emit": "4.3.0",
+          "System.Reflection.Emit.Lightweight": "4.3.0",
+          "System.Reflection.TypeExtensions": "4.3.0",
+          "System.Runtime.Extensions": "4.3.0",
+          "System.Runtime.InteropServices.RuntimeInformation": "4.3.0",
+          "System.Security.Cryptography.Algorithms": "4.3.0",
+          "System.Security.Cryptography.X509Certificates": "4.3.0",
+          "System.Text.RegularExpressions": "4.3.0",
+          "System.Threading": "4.3.0",
+          "System.Threading.Thread": "4.3.0",
+          "System.Threading.ThreadPool": "4.3.0",
+          "System.Threading.Timer": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard1.5/StackExchange.Redis.StrongName.dll": {
+            "assemblyVersion": "1.2.6.0",
+            "fileVersion": "1.2.6.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard1.5/StackExchange.Redis.StrongName.dll": {}
+        }
+      },
       "Swashbuckle.AspNetCore/5.0.0": {
         "dependencies": {
           "Microsoft.Extensions.ApiDescription.Server": "3.0.0",
@@ -1232,6 +1283,7 @@
           "System.Runtime": "4.3.0"
         }
       },
+      "System.ComponentModel.Annotations/4.5.0": {},
       "System.ComponentModel.Primitives/4.3.0": {
         "dependencies": {
           "System.ComponentModel": "4.3.0",
@@ -3056,7 +3108,7 @@
         },
         "compileOnly": true
       },
-      "System.ComponentModel.Annotations/4.3.1.0": {
+      "System.ComponentModel.Annotations.Reference/4.3.1.0": {
         "compile": {
           "System.ComponentModel.Annotations.dll": {}
         },
@@ -4087,12 +4139,12 @@
       "path": "microsoft.extensions.apidescription.server/3.0.0",
       "hashPath": "microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512"
     },
-    "Microsoft.Extensions.Caching.Abstractions/1.0.0": {
+    "Microsoft.Extensions.Caching.Abstractions/2.2.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-IxlFDVOchL6tdR05bk7EiJvMtvZrVkZXBhkbXqc3GxOHOrHFGcN+92WoWFPeBpdpy8ot/Px5ZdXzt7k+2n1Bdg==",
-      "path": "microsoft.extensions.caching.abstractions/1.0.0",
-      "hashPath": "microsoft.extensions.caching.abstractions.1.0.0.nupkg.sha512"
+      "sha512": "sha512-spsJkYo8gGJapaxTSQFN/wqA+ghpJMLwB4ZyTB+fSdpd7AmMFP/YSpIcGmczcw4KggpxLGhLk7lCkSIlgvHaqQ==",
+      "path": "microsoft.extensions.caching.abstractions/2.2.0",
+      "hashPath": "microsoft.extensions.caching.abstractions.2.2.0.nupkg.sha512"
     },
     "Microsoft.Extensions.Caching.Memory/1.0.0": {
       "type": "package",
@@ -4100,6 +4152,13 @@
       "sha512": "sha512-6+7zTufCnZ+tfrUo7RbIRR3LB0BxwOwxfXuo0IbLyIvgoToGpWuz5wYEDfCYNOvpig9tY8FA0I1uRHYmITMXMQ==",
       "path": "microsoft.extensions.caching.memory/1.0.0",
       "hashPath": "microsoft.extensions.caching.memory.1.0.0.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Caching.Redis/2.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-cb21miiGDVjlNl8TRBKIi7OEFdlKuV8d4ZoYqFOhKdZhzo7Sv+b8Puy3NLW3y/g+UDclt7FTh+Za7ykurtaVMQ==",
+      "path": "microsoft.extensions.caching.redis/2.2.0",
+      "hashPath": "microsoft.extensions.caching.redis.2.2.0.nupkg.sha512"
     },
     "Microsoft.Extensions.Configuration/3.1.2": {
       "type": "package",
@@ -4157,12 +4216,12 @@
       "path": "microsoft.extensions.dependencyinjection/1.0.2",
       "hashPath": "microsoft.extensions.dependencyinjection.1.0.2.nupkg.sha512"
     },
-    "Microsoft.Extensions.DependencyInjection.Abstractions/2.1.0": {
+    "Microsoft.Extensions.DependencyInjection.Abstractions/2.2.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-8/CtASu80UIoyG+r8FstrmZW5GLtXxzoYpjj3jV0FKZCL5CiFgSH3pAmqut/dC68mu7N1bU6v0UtKKL3gCUQGQ==",
-      "path": "microsoft.extensions.dependencyinjection.abstractions/2.1.0",
-      "hashPath": "microsoft.extensions.dependencyinjection.abstractions.2.1.0.nupkg.sha512"
+      "sha512": "sha512-f9hstgjVmr6rmrfGSpfsVOl2irKAgr1QjrSi3FgnS7kulxband50f2brRLwySAQTADPZeTdow0mpSMcoAdadCw==",
+      "path": "microsoft.extensions.dependencyinjection.abstractions/2.2.0",
+      "hashPath": "microsoft.extensions.dependencyinjection.abstractions.2.2.0.nupkg.sha512"
     },
     "Microsoft.Extensions.DiagnosticAdapter/1.1.0": {
       "type": "package",
@@ -4220,12 +4279,12 @@
       "path": "microsoft.extensions.objectpool/1.0.1",
       "hashPath": "microsoft.extensions.objectpool.1.0.1.nupkg.sha512"
     },
-    "Microsoft.Extensions.Options/2.1.0": {
+    "Microsoft.Extensions.Options/2.2.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-VOM1pPMi9+7/4Vc9aPLU8btHOBQy1+AvpqxLxFI2OVtqGv+1klPaV59g9R6aSt2U7ijfB3TjvAO4Tc/cn9/hxA==",
-      "path": "microsoft.extensions.options/2.1.0",
-      "hashPath": "microsoft.extensions.options.2.1.0.nupkg.sha512"
+      "sha512": "sha512-UpZLNLBpIZ0GTebShui7xXYh6DmBHjWM8NxGxZbdQh/bPZ5e6YswqI+bru6BnEL5eWiOdodsXtEz3FROcgi/qg==",
+      "path": "microsoft.extensions.options/2.2.0",
+      "hashPath": "microsoft.extensions.options.2.2.0.nupkg.sha512"
     },
     "Microsoft.Extensions.PlatformAbstractions/1.1.0": {
       "type": "package",
@@ -4356,7 +4415,7 @@
     "runtime.native.System.IO.Compression/4.3.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-b+V9JC/Ii3sR659flBeaBJww111425tgjcDS1k+hqV4sGh9FALRDBvJnDtQ895gAzpPTUOFDHdqaZ2Et7BpZMg==",
+      "sha512": "sha512-INBPonS5QPEgn7naufQFXJEp3zX6L4bwHgJ/ZH78aBTpeNfQMtf7C6VrAFhlq2xxWBveIOWyFzQjJ8XzHMhdOQ==",
       "path": "runtime.native.system.io.compression/4.3.0",
       "hashPath": "runtime.native.system.io.compression.4.3.0.nupkg.sha512"
     },
@@ -4458,6 +4517,13 @@
       "path": "runtime.win7-x86.runtime.native.system.data.sqlclient.sni/4.3.0",
       "hashPath": "runtime.win7-x86.runtime.native.system.data.sqlclient.sni.4.3.0.nupkg.sha512"
     },
+    "StackExchange.Redis.StrongName/1.2.6": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-UFmT1/JYu1PLiRwkyvEPVHk/tVTJa8Ka2rb9yzidzDoQARvhBVRpaWUeaP81373v54jupDBvAoGHGl0EY/HphQ==",
+      "path": "stackexchange.redis.strongname/1.2.6",
+      "hashPath": "stackexchange.redis.strongname.1.2.6.nupkg.sha512"
+    },
     "Swashbuckle.AspNetCore/5.0.0": {
       "type": "package",
       "serviceable": true,
@@ -4524,7 +4590,7 @@
     "System.Collections.NonGeneric/4.3.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-LE/oChpRvkSi3U25u0KnJcI44JeDZ1QJCyN4qFDx2uusEypdqR24w7lKYw21eYe5esuCBuc862wRmpF63Yy1KQ==",
+      "sha512": "sha512-prtjIEMhGUnQq6RnPEYLpFt8AtLbp9yq2zxOSrY7KJJZrw25Fi97IzBqY7iqssbM61Ek5b8f3MG/sG1N2sN5KA==",
       "path": "system.collections.nongeneric/4.3.0",
       "hashPath": "system.collections.nongeneric.4.3.0.nupkg.sha512"
     },
@@ -4542,6 +4608,13 @@
       "path": "system.componentmodel/4.3.0",
       "hashPath": "system.componentmodel.4.3.0.nupkg.sha512"
     },
+    "System.ComponentModel.Annotations/4.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-UxYQ3FGUOtzJ7LfSdnYSFd7+oEv6M8NgUatatIN2HxNtDdlcvFAf+VIq4Of9cDMJEJC0aSRv/x898RYhB4Yppg==",
+      "path": "system.componentmodel.annotations/4.5.0",
+      "hashPath": "system.componentmodel.annotations.4.5.0.nupkg.sha512"
+    },
     "System.ComponentModel.Primitives/4.3.0": {
       "type": "package",
       "serviceable": true,
@@ -4552,7 +4625,7 @@
     "System.ComponentModel.TypeConverter/4.3.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-HZiP0DwTHJ+C+rdFqP47nBYUh5283kcwXIGY2zOVVhsJmVI/2tYiX2zNRdjRQRHsTox58Ydkec6h0pWSh8wAsw==",
+      "sha512": "sha512-16pQ6P+EdhcXzPiEK4kbA953Fu0MNG2ovxTZU81/qsCd1zPRsKc3uif5NgvllCY598k6bI0KUyKW8fanlfaDQg==",
       "path": "system.componentmodel.typeconverter/4.3.0",
       "hashPath": "system.componentmodel.typeconverter.4.3.0.nupkg.sha512"
     },
@@ -5119,7 +5192,7 @@
     "System.Threading.ThreadPool/4.3.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-SrCOmTvvOOCmJT4BBxdZcwhz6XEMsjBGZvGSVorOxdCznaUNeVotEjDfXGIZ8gcGo00qgPbTV6puHDgcFYl6Iw==",
+      "sha512": "sha512-k/+g4b7vjdd4aix83sTgC9VG6oXYKAktSfNIJUNGxPEj7ryEOfzHHhfnmsZvjxawwcD9HyWXKCXmPjX8U4zeSw==",
       "path": "system.threading.threadpool/4.3.0",
       "hashPath": "system.threading.threadpool.4.3.0.nupkg.sha512"
     },
@@ -5810,7 +5883,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "System.ComponentModel.Annotations/4.3.1.0": {
+    "System.ComponentModel.Annotations.Reference/4.3.1.0": {
       "type": "referenceassembly",
       "serviceable": false,
       "sha512": ""
