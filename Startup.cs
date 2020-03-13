@@ -39,23 +39,24 @@ namespace ContactsCore3CosmosDBMVC
         cfg.CosmosKey = Configuration["CosmosConnectionString:CosmosKey"];
       });
 
-      // services.AddApplicationInsightsTelemetry(cfg =>
-      // {
-      //   cfg.InstrumentationKey = Configuration["ApplicationInsights:InstrumentationKey"];
-      // });
-      // services.AddLogging(cfg =>
-      // {
-      //   cfg.AddApplicationInsights(Configuration["ApplicationInsights:InstrumentationKey"]);
-      //   cfg.AddFilter<ApplicationInsightsLoggerProvider>("", LogLevel.Information);
-      // });
+      services.AddApplicationInsightsTelemetry(cfg =>
+      {
+        cfg.InstrumentationKey = Configuration["ApplicationInsights:InstrumentationKey"];
+      });
+      services.AddLogging(cfg =>
+      {
+        cfg.AddApplicationInsights(Configuration["ApplicationInsights:InstrumentationKey"]);
+        cfg.AddFilter<ApplicationInsightsLoggerProvider>("", LogLevel.Information);
+      });
 
-      // if (Configuration["EnableRedisCaching"] == "true")
-      // {
-      //   services.AddDistributedRedisCache(cfg => {
-      //     cfg.Configuration = Configuration["ConnectionStrings:RedisConnection"];
-      //     cfg.InstanceName = "master";
-      //   });
-      // }
+      if (Configuration["EnableRedisCaching"] == "true")
+      {
+        services.AddDistributedRedisCache(cfg =>
+        {
+          cfg.Configuration = Configuration["ConnectionStrings:RedisConnection"];
+          cfg.InstanceName = "master";
+        });
+      }
 
       services.AddScoped<IContactRepository, CosmosContactRepository>();
       services.AddControllersWithViews();
@@ -74,15 +75,15 @@ namespace ContactsCore3CosmosDBMVC
         // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
         app.UseHsts();
       }
-      // var appInsightsFlag = app.ApplicationServices.GetService<Microsoft.ApplicationInsights.Extensibility.TelemetryConfiguration>();
-      // if (Configuration["EnableAppInsightsDisableTelemetry"] == "false")
-      // {
-      //   appInsightsFlag.DisableTelemetry = false;
-      // }
-      // else
-      // {
-      //   appInsightsFlag.DisableTelemetry = true;
-      // }
+      var appInsightsFlag = app.ApplicationServices.GetService<Microsoft.ApplicationInsights.Extensibility.TelemetryConfiguration>();
+      if (Configuration["EnableAppInsightsDisableTelemetry"] == "false")
+      {
+        appInsightsFlag.DisableTelemetry = false;
+      }
+      else
+      {
+        appInsightsFlag.DisableTelemetry = true;
+      }
 
       app.UseStaticFiles();
 

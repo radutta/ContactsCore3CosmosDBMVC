@@ -9181,23 +9181,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Phantom\\.nuget\\packages\\": {},
+    "C:\\Users\\radutta\\.nuget\\packages\\": {},
     "C:\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\MN\\ContactsCore3CosmosDBMVC\\ContactsCore3CosmosDBMVC.csproj",
+      "projectUniqueName": "C:\\RD\\ContactsCore3CosmosDBMVC\\ContactsCore3CosmosDBMVC.csproj",
       "projectName": "ContactsCore3CosmosDBMVC",
-      "projectPath": "C:\\MN\\ContactsCore3CosmosDBMVC\\ContactsCore3CosmosDBMVC.csproj",
-      "packagesPath": "C:\\Users\\Phantom\\.nuget\\packages\\",
-      "outputPath": "C:\\MN\\ContactsCore3CosmosDBMVC\\obj\\",
+      "projectPath": "C:\\RD\\ContactsCore3CosmosDBMVC\\ContactsCore3CosmosDBMVC.csproj",
+      "packagesPath": "C:\\Users\\radutta\\.nuget\\packages\\",
+      "outputPath": "C:\\RD\\ContactsCore3CosmosDBMVC\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"
       ],
       "configFilePaths": [
-        "C:\\Users\\Phantom\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\radutta\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],

@@ -131,21 +131,88 @@ namespace ContactsCore3CosmosDBMVC.Models.Concrete
 
     public async Task<List<Contact>> GetAllContactsAsync()
     {
-      var sqlQuery = "Select * from c";
-
-      QueryDefinition queryDefinition = new QueryDefinition(sqlQuery);
-      FeedIterator<Contact> queryResultIterator = _container.GetItemQueryIterator<Contact>(queryDefinition);
-      List<Contact> contactsList = new List<Contact>();
-      while (queryResultIterator.HasMoreResults)
+      List<Contact> contactsList = null;
+      if (_configuration["EnableRedisCaching"] == "true")
       {
-        FeedResponse<Contact> currentResultSet = await queryResultIterator.ReadNextAsync();
-        foreach (var item in currentResultSet)
+        var cachedContactList = await _distributedCache.GetStringAsync("contactList");
+        if (!string.IsNullOrEmpty(cachedContactList))
         {
-          contactsList.Add(item);
+          contactsList = JsonConvert.DeserializeObject<List<Contact>>(cachedContactList);
+          _logger.LogInformation($"--- CosmosContactRepository.GetAllContactsAsync, ContactList read from Redis cache ---");
+
+
         }
-        return contactsList;
+        else
+        {
+          var sqlQuery = "Select * from c";
+
+          QueryDefinition queryDefinition = new QueryDefinition(sqlQuery);
+          FeedIterator<Contact> queryResultIterator = _container.GetItemQueryIterator<Contact>(queryDefinition);
+          contactsList = new List<Contact>();
+          while (queryResultIterator.HasMoreResults)
+          {
+            FeedResponse<Contact> currentResultSet = await queryResultIterator.ReadNextAsync();
+            foreach (var item in currentResultSet)
+            {
+              contactsList.Add(item);
+            }
+            DistributedCacheEntryOptions entryOptions = new DistributedCacheEntryOptions();
+            entryOptions.SetAbsoluteExpiration(new TimeSpan(0, 3, 0));
+            await _distributedCache.SetStringAsync("contactList", JsonConvert.SerializeObject(contactsList), entryOptions);
+            _logger.LogInformation($"--- CosmosContactRepository.GetAllContactsAsync, ContactList added to Redis cache ---");
+            // return contactsList;
+          }
+
+        }
+
       }
-      return null;
+      else
+      {
+        var sqlQuery = "Select * from c";
+
+        QueryDefinition queryDefinition = new QueryDefinition(sqlQuery);
+        FeedIterator<Contact> queryResultIterator = _container.GetItemQueryIterator<Contact>(queryDefinition);
+        contactsList = new List<Contact>();
+        while (queryResultIterator.HasMoreResults)
+        {
+          FeedResponse<Contact> currentResultSet = await queryResultIterator.ReadNextAsync();
+          foreach (var item in currentResultSet)
+          {
+            contactsList.Add(item);
+          }
+          return contactsList;
+        }
+
+      }
+      return contactsList;
+
+
+
+
+
+
+
+
+
+
+
+      #region Without Cache
+      // var sqlQuery = "Select * from c";
+
+      // QueryDefinition queryDefinition = new QueryDefinition(sqlQuery);
+      // FeedIterator<Contact> queryResultIterator = _container.GetItemQueryIterator<Contact>(queryDefinition);
+      // List<Contact> contactsList = new List<Contact>();
+      // while (queryResultIterator.HasMoreResults)
+      // {
+      //   FeedResponse<Contact> currentResultSet = await queryResultIterator.ReadNextAsync();
+      //   foreach (var item in currentResultSet)
+      //   {
+      //     contactsList.Add(item);
+      //   }
+      //   return contactsList;
+      // }
+      // return null;
+      #endregion
     }
 
     public async Task<Contact> UpdateAsync(Contact contact)
